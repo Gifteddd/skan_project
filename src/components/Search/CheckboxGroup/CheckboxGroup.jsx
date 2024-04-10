@@ -1,7 +1,7 @@
 import React from 'react';
 import './CheckboxGroup.css';
 
-const CheckboxGroup = ({ checkboxStates, handleCheckboxChange }) => {
+const CheckboxGroup = ({ checkboxGroup, handleCheckboxChange }) => {
   const labels = {
     maxCompleteness: "Признак максимальной полноты",
     businessMentions: "Упоминания в бизнес-контексте",
@@ -14,17 +14,17 @@ const CheckboxGroup = ({ checkboxStates, handleCheckboxChange }) => {
 
   return (
     <div className="right-part-search-checkbox-block">
-      {Object.keys(checkboxStates).map((key) => (
+      {Object.keys(checkboxGroup).map((key) => (
         <div key={key} className="checkbox-container">
           <input
             type="checkbox"
             id={`checkbox-${key}`}
             name={key}
-            checked={checkboxStates[key]}
+            checked={checkboxGroup[key]}
             onChange={handleCheckboxChange}
             className="hidden-checkbox"
           />
-          <label htmlFor={`checkbox-${key}`} className={checkboxStates[key] ? "checked-label" : ""}>
+          <label htmlFor={`checkbox-${key}`} className={checkboxGroup[key] ? "checked-label" : ""}>
             <span className="custom-checkbox"></span>
             <span className="label-text">{labels[key]}</span>
           </label>

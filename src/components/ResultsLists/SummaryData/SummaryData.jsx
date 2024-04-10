@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { formatDate, combineDataByDate } from './helps';
-import './summaryDate.css';
+import './SummaryData.css';
 import loading_icon from '../../../assets/loading_icon.svg';
 
 const SummaryData = ({ searchData, isLoading, isError }) => {

@@ -1,8 +1,8 @@
 import React from 'react';
-import './CardTariff.css';
+import './CardTariffs.css';
 import tariffs_green_checkbox_icon from "../../../../assets/tariffs_green_checkbox_icon.svg";
 
-const CardTariff = ({ 
+const CardTariffs = ({ 
     name, 
     description, 
     icon, 
@@ -65,4 +65,4 @@ const CardTariff = ({
     );
 };
 
-export default CardTariff;
+export default CardTariffs;

@@ -14,12 +14,12 @@ import search_page_small_picture_folders from "../../assets/search_page_small_pi
 import search_page_small_picture_sheet from "../../assets/search_page_small_picture_sheet.svg"
 
 const Search = () => {
-  const [companyINN, setCompanyINN] = useState('');
-  const [tonality, setTonality] = useState('Любая');
-  const [documentCount, setDocumentCount] = useState('');
-  const [startDate, setStartDate] = useState('');
+  const [innSearch, setCompanyINN] = useState('');
+  const [tonalPanel, setTonality] = useState('Любая');
+  const [countDocTotal, setDocumentCount] = useState('');
+  const [dateEntry, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [checkboxStates, setCheckboxStates] = useState({
+  const [checkboxGroup, setCheckboxStates] = useState({
     maxCompleteness: false,
     businessMentions: false,
     mainRole: false,
@@ -42,9 +42,9 @@ const Search = () => {
 
   useEffect(() => {
     
-    const isValid = companyINN && documentCount && startDate && endDate;
+    const isValid = innSearch && countDocTotal && dateEntry && endDate;
     setIsFormValid(isValid);
-  }, [companyINN, documentCount, startDate, endDate, checkboxStates]);
+  }, [innSearch, countDocTotal, dateEntry, endDate, checkboxGroup]);
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
@@ -57,46 +57,46 @@ const Search = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
   
-    let apiTonality;
-    switch (tonality) {
+    let apiTonalPanel;
+    switch (tonalPanel) {
       case 'Любая':
-        apiTonality = 'any';
+        apiTonalPanel = 'any';
         break;
       case 'Позитивная':
-        apiTonality = 'positive';
+        apiTonalPanel = 'positive';
         break;
       case 'Негативная':
-        apiTonality = 'negative';
+        apiTonalPanel = 'negative';
         break;
       default:
-        apiTonality = 'any';
+        apiTonalPanel = 'any';
     }
   
     if (isFormValid) {
       
       const searchParams = {
         issueDateInterval: {
-          startDate: `${startDate}T00:00:00+03:00`,
+          startDate: `${dateEntry}T00:00:00+03:00`,
           endDate: `${endDate}T23:59:59+03:00`
         },
         searchContext: {
           targetSearchEntitiesContext: {
             targetSearchEntities: [{
               type: "company",
-              inn: companyINN,
-              maxFullness: checkboxStates.maxCompleteness,
+              inn: innSearch,
+              maxFullness: checkboxGroup.maxCompleteness,
             }],
-            onlyMainRole: checkboxStates.mainRole,
-            tonality: apiTonality,
-            onlyWithRiskFactors: checkboxStates.riskFactorsOnly,
+            onlyMainRole: checkboxGroup.mainRole,
+            tonalPanel: apiTonalPanel,
+            onlyWithRiskFactors: checkboxGroup.riskFactorsOnly,
           }
         },
         attributeFilters: {
-          excludeTechNews: !checkboxStates.includeMarketNews,
-          excludeAnnouncements: !checkboxStates.includeAnnouncements,
-          excludeDigests: !checkboxStates.includeNewsSummaries,
+          excludeTechNews: !checkboxGroup.includeMarketNews,
+          excludeAnnouncements: !checkboxGroup.includeAnnouncements,
+          excludeDigests: !checkboxGroup.includeNewsSummaries,
         },
-        limit: Number(documentCount),
+        limit: Number(countDocTotal),
         sortType: "sourceInfluence",
         sortDirectionType: "desc",
         intervalType: "month",

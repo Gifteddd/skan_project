@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './CountDocTotal.css';
 
-const CountDocTotal = ({ documentCount, setDocumentCount }) => {
+const CountDocTotal = ({ countDocTotal, setDocumentCount }) => {
   const [error, setError] = useState('');
 
   const validateDocumentCount = () => {
-    const count = parseInt(documentCount, 10);
+    const count = parseInt(countDocTotal, 10);
 
-    if (!documentCount) {
+    if (!countDocTotal) {
       setError("Обязательное поле");
     } else if (isNaN(count) || count < 1) {
       setError("Введите корректные данные");
@@ -20,17 +20,17 @@ const CountDocTotal = ({ documentCount, setDocumentCount }) => {
 
   useEffect(() => {
     validateDocumentCount();
-  }, [documentCount]);
+  }, [countDocTotal]);
 
   return (
     <div className="form-field form-field-inputs">
-      <label htmlFor="documentCount">Количество документов в выдаче <span className={error ? "required-asterisk error" : "required-asterisk"}>*</span></label>
+      <label htmlFor="countDocTotal">Количество документов в выдаче <span className={error ? "required-asterisk error" : "required-asterisk"}>*</span></label>
       <input
         type="number"
-        id="documentCount"
-        name="documentCount"
+        id="countDocTotal"
+        name="countDocTotal"
         className={error ? 'input-error' : ''}
-        value={documentCount}
+        value={countDocTotal}
         onChange={(e) => {
           const newValue = e.target.value;
           setDocumentCount(newValue);

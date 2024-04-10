@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './InnSearch.css';
 
-const InnSearch = ({ companyINN, setCompanyINN }) => {
+const InnSearch = ({ innSearch, setCompanyINN }) => {
   const [error, setError] = useState('');
 
   const validateInn = (inn) => {
@@ -54,20 +54,20 @@ const InnSearch = ({ companyINN, setCompanyINN }) => {
   };
 
   useEffect(() => {
-    validateInn(companyINN);
-  }, [companyINN]);
+    validateInn(innSearch);
+  }, [innSearch]);
 
   return (
     <div className="form-field form-field-inputs">
-      <label htmlFor="companyINN">ИНН компании <span className={error ? "required-asterisk error" : "required-asterisk"}>*</span></label>
+      <label htmlFor="innSearch">ИНН компании <span className={error ? "required-asterisk error" : "required-asterisk"}>*</span></label>
       <input
         type="text"
-        id="companyINN"
-        name="companyINN"
+        id="innSearch"
+        name="innSearch"
         className={error ? 'input-error' : ''}
-        value={companyINN}
+        value={innSearch}
         onChange={(e) => setCompanyINN(e.target.value)}
-        onBlur={() => validateInn(companyINN)}
+        onBlur={() => validateInn(innSearch)}
         placeholder="10 или 12 цифр"
       />
       {error && <div className="error-message">{error}</div>}

@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import './DateEntry.css';
 
-const DateEntry = ({ startDate, setStartDate, endDate, setEndDate }) => {
+const DateEntry = ({ dateEntry, setStartDate, endDate, setEndDate }) => {
   const [error, setError] = useState('');
   const [inputTypeStart, setInputTypeStart] = useState('text');
   const [inputTypeEnd, setInputTypeEnd] = useState('text');
 
   useEffect(() => {
     validateDateRange();
-  }, [startDate, endDate]);
+  }, [dateEntry, endDate]);
 
   const validateDateRange = () => {
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     
-    if (!startDate || !endDate) {
+    if (!dateEntry || !endDate) {
       setError("Обязательное поле");
-    } else if (new Date(startDate) > new Date(endDate)) {
+    } else if (new Date(dateEntry) > new Date(endDate)) {
       setError("Введите корректные данные");
-    } else if (new Date(startDate) > currentDate || new Date(endDate) > currentDate) {
+    } else if (new Date(dateEntry) > currentDate || new Date(endDate) > currentDate) {
       setError("Дата не может быть позже текущей даты");
     } else {
       setError("");
@@ -27,7 +27,7 @@ const DateEntry = ({ startDate, setStartDate, endDate, setEndDate }) => {
 
   return (
     <div className="form-field">
-      <label htmlFor="startDate">Диапазон поиска <span className={error ? "required-asterisk error" : "required-asterisk"}>*</span></label>
+      <label htmlFor="dateEntry">Диапазон поиска <span className={error ? "required-asterisk error" : "required-asterisk"}>*</span></label>
       <div className='form-field-date-inputs'>
         <div className="date-input-container">
           <input
@@ -35,12 +35,12 @@ const DateEntry = ({ startDate, setStartDate, endDate, setEndDate }) => {
             onFocus={() => setInputTypeStart('date')}
             onBlur={() => {
               validateDateRange();
-              if (!startDate) setInputTypeStart('text');
+              if (!dateEntry) setInputTypeStart('text');
             }}
-            id="startDate"
-            name="startDate"
+            id="dateEntry"
+            name="dateEntry"
             placeholder="Дата начала"
-            value={startDate}
+            value={dateEntry}
             onChange={(e) => setStartDate(e.target.value)}
             className={error ? 'error' : ''}
           />

@@ -8,7 +8,7 @@ import { useAuth } from '../../context/AuthCont';
 
 import './Header.css';
 
-import useWindowSize from './useWindowSize';
+import useWindowSize from './useWindowSizeHook';
 
 import scan_logo_green from '../../assets/scan_logo_green.svg';
 import scan_logo_white from '../../assets/scan_logo_white.svg';
